@@ -1,14 +1,33 @@
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 function LoginForm() {
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+  });
+
+  function inputHandler(e) {
+    setInput((values) => ({ ...values, [e.target.name]: e.target.value }));
+    console.log(input);
+  }
+
+  function submitHandler(e) {
+    e.preventDefault();
+    console.log(input);
+  }
+
   function registerPage() {
     return console.log("go to register page");
   }
 
   return (
     <>
-      <Form style={{ padding: 60 }}>
+      <Form
+        style={{ padding: 60 }}
+        onSubmit={submitHandler}
+      >
         <h1>Login</h1>
         <Form.Group
           className="mb-3"
@@ -18,6 +37,8 @@ function LoginForm() {
           <Form.Control
             type="email"
             placeholder="Enter email"
+            onChange={inputHandler}
+            name="email"
           />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
@@ -32,6 +53,8 @@ function LoginForm() {
           <Form.Control
             type="password"
             placeholder="Password"
+            onChange={inputHandler}
+            name="password"
           />
         </Form.Group>
         <Form.Group
